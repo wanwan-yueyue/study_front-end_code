@@ -1,0 +1,87 @@
+<!-- 
+    <!DOCTYPE html>
+    <html>
+        头部，内容不会显示在网页中，用于存放文件的字符编码、关键字和脚本等内容
+        <head>
+
+        </head>
+        身体，用户看到的内容，例如网页图片，文字，按钮
+        <body>
+
+        </body>
+    </html> 
+-->
+
+<!-- 实际上，你可以使用惊叹号`!`快速完成如上内容-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset ="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>烘焙工坊</title>
+    <!-- CSS第二种写法：写到head中-->
+    <!--
+    <style>
+        h2 {
+            color: red;
+        }
+        /*同理，可以修改<p>标签的文字色彩*/
+        p {
+            color: blue;
+            font-size: 36px;
+        }
+    </style>
+    -->
+    <!-- css 最合适的用法，创建一个样式表-->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--header 标签，用以存放页首相关资讯-->
+    <header>
+        <!-- 标题栏，从h1到h6-->
+        <h1>烘焙工坊</h1>
+        <!-- 用来放置网站的导览页或主选单-->
+        <nav>
+            <!-- ol(有序列表)、ul（无序列表）,清单开头标签；li,清单内容标签-->
+            <!-- 清单最常见的用途是导览页-->
+            <ul>
+                <li><a href="#">最新消息</a></li>
+                <li><a href="#">关于我们</a></li>
+                <li><a href="#">门市据点</a></li>
+                <li><a href="#">会员专区</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- main 用以存放网站的主要内容 -->
+    <main>
+        <!-- section标签，用作分类main中的内容-->
+        <section>
+            <!-- 内部嵌入css 例如style，修改标题颜色-->
+            <!-- <h2 style="color: red;">健康鼓舞面包新鲜出炉！</h2> -->
+            <h2>健康鼓舞面包新鲜出炉！</h2>
+            <!-- strong标签，粗体；em标签，斜体-->
+            <p><strong>亚麻的细语、葵花的微风，每一口都是自然的叙事</strong></p>
+            <!-- a标签，用于连接其他网页-->
+            <p><a href="#">了解更多</a></p>
+        </section>
+
+        <section>
+            <!-- 引用话语的标签，blockquote-->
+            <!-- br 断行标签-->
+            <blockquote cite="https://www.example.com/source">" 精选天然食材，精湛匠心烘焙，<br>让幸福在每口面包中的香气中蔓延 "</blockquote>
+        </section>
+
+        <section>
+            <!-- 图片标签 img-->
+            <img src="images/shop.jpg" alt="烘焙工坊店面">
+            <h2>9月1日面包店隆重开张！</h2>
+            <p>享受花园庭院的悠闲时光，内用座位与美食相伴，<br>
+            即日起来店消费加 LINE 好友可获精致小点心，等你一同品味！</p>
+        </section>
+    </main>
+    <!-- footer页尾 通常用来标注网站的版权声明或者附加咨询-->
+    <footer>
+        <p>Copyright © 2025 烘焙工坊 All rights Reserved</p>
+    </footer>
+</body>
+</html>

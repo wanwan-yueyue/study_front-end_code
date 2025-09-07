@@ -1,0 +1,87 @@
+/*修改预设的边距*/
+* {
+    padding: 0;
+    margin: 0;
+}
+/*
+显示各个部分
+header, section, footer {
+    修改背景颜色
+    background-color: #d6ccc2;
+    
+     手动调整相应的border[外边距]
+     分别是边框粗细 颜色 线条样式（solid为直线，dashed为虚线，dotted是圆点）
+    
+    border: 5px #9d8189 solid;
+    
+     手动调整相应的padding[内边距],只输入一个值应用到四周。
+     但如果想要更精细，则可按照上 右 下 左的顺序调节;
+     如果只写三个，则为 上 左右 下；两个就是 上下 左右
+    
+    padding: 30px 0 20px 50px;
+    
+     上述写法也适用于margin的写法
+    
+    margin: 30px;
+}
+*/
+
+header {
+    background-color: #231c1A;
+    height: 80px;
+    width: 100%;
+    /*
+     使用position进行相对移动时，网页元素会从它原本的位置进行相对移动
+     position: relative;
+     例如左侧多出50像素，上方多出100像素
+     left: 50px;
+     top: 100px;
+    */
+    position: relative;
+}
+
+h1 {
+    color: white;
+    position: absolute;
+    left: 120px;
+    top: 0;
+    line-height: 80px;
+    /* 
+     background-image: url(images/logo.png);
+     background-repeat: no-repeat;
+     background-position: center;
+     width: 210px;
+     text-indent: -9999;
+    */
+}
+
+header ul {
+    /*采用绝对模式时，元素则会以包裹该元素的容器来进行计算*/
+    position: absolute;
+    right: 5vw;
+    top: 0;
+    /*如果想要文字置中于页首, 我们可以加大文字行距*/
+    line-height: 80px;
+}
+
+header li {
+    /*把li标签内容转化成行内元素*/
+    display: inline;
+    /*加大按钮的右边距*/
+    /*
+     这里使用相对单位vw(Viewport Width)
+     这里代表视窗宽度的4%
+     */
+    margin-right: 4vw;
+}
+
+header a {
+    color: white;
+    /*底线消失*/
+    text-decoration: none;
+}
+
+header a:hover {
+    /*鼠标悬停到上方时，底线再度出现*/
+    text-decoration: underline;
+}
