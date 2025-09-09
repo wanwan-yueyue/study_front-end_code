@@ -1,0 +1,184 @@
+/* 引入 Google Fonts 提供的 Poppins 字体及其实用的字重变体 */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body
+{
+    /* 将<body>元素设置为弹性容器 */
+    display: flex;
+    /* 水平方向上弹性项的对齐方式为居中排列 */
+    justify-content: center;
+    /* 垂直方向上弹性项居中排列 */
+    align-items: center;
+    /* 确保<body>元素的高度始终为100视窗高度 */
+    min-height: 100vh;
+    background-color: #363636;
+}
+
+.container
+{
+    /* 容器设置为相对定位 */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 弹性项之间的间距（包括水平和垂直方向）为40px */
+    gap: 40px;
+}
+
+.container .circle
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 改变弹性容器的主轴方向为垂直方向（默认是水平方向） */
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    /* 将正方形的四个角弧度设置为 50%，使其呈现圆形外观 */
+    border-radius: 50%;
+}
+
+/* 这是针对 .container 容器内所有 .circle 元素的 ::before 伪元素 */
+.container .circle::before
+{
+    /* 
+     伪元素必须设置 content 属性才会显示，
+     这里为空字符串（''），表示该伪元素仅用于视觉装饰，不包含实际文本内容 
+    */
+    content: '';
+    /* 
+     由于其父元素 .circle 设置了 position: relative;，
+     因此伪元素会以 .circle 的边界为参考系进行定位。
+    */
+    position: absolute;
+    /* 
+     inset 是 top、right、bottom、left 的简写属性，
+     这里表示伪元素的上、右、下、左边缘均距离
+    */
+    inset: 5px;
+    border-radius: 50%;
+    background-color: #222;
+    /* 设置 80% 的不透明度 */
+    opacity: 0.8;
+}
+
+/* 
+ 作用于 .container 内部的 .circle 元素，
+ 通过 ::after 伪元素在 .circle 内容的 “后面” 插入一个虚拟元素
+ （视觉上会叠加在元素上层，不影响 HTML 结构）
+*/
+.container .circle::after
+{
+    content: '';
+    /* 以父元素 .circle 为参考系进行定位，
+    默认会覆盖在 .circle 内部的中间位置 */
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-color: #333;
+    border: 15px solid #4d4c51;
+    border-radius: 50%;
+    /* 
+     内阴影：inset 0 5px 10px rgba(0,0,0,0.25)
+     inset：表示这是内部阴影（阴影会绘制在元素内部，而非外部）。
+     0：水平偏移量（阴影左右位置，0 表示水平居中）。
+     5px：垂直偏移量（阴影上下位置，向下偏移 5px）。
+     10px：模糊半径（阴影边缘的模糊程度，值越大越模糊）。
+     rgba(0,0,0,0.25)：阴影颜色（黑色，透明度 25%）。
+
+     效果：在 .circle::after 伪元素的内部上方产生一层浅黑色阴影，
+     模拟 “内部凹陷” 的质感，让内层圆形的中心区域与边缘形成明暗对比，
+     增强内部层次感。
+    
+     外阴影：0 10px 10px rgba(0,0,0,0.75)
+     无 inset：表示这是外部阴影（阴影绘制在元素外部）。
+     0：水平偏移量（水平居中）。
+     10px：垂直偏移量（向下偏移 10px）。
+     10px：模糊半径（中等模糊程度）。
+     rgba(0,0,0,0.75)：阴影颜色（黑色，透明度 75%，较深）。
+
+     效果：在 .circle::after 伪元素的外部下方产生一层较深的阴影，
+     模拟 “悬浮” 效果，让这个内层圆形看起来像是从中间层（::before 伪元素）上微微凸起，
+     增强整体的立体感和空间层次。
+
+     外高光阴影：0 -2px 2px rgba(255,255,255,0.5)
+     无 inset：属于外部阴影。
+     0：水平偏移量（水平居中）。
+     -2px：垂直偏移量（向上偏移 2px，位于元素顶部边缘）。
+     2px：模糊半径（轻微模糊，边缘柔和）。
+     rgba(255,255,255,0.5)：颜色为半透明白色（透明度 50%）。
+    
+     效果：在 .circle::after 伪元素的顶部边缘添加一道浅色高光，
+     模拟 “光线从上方照射时，物体顶部边缘反射光线” 的效果，增强 “凸起感”，
+     让内层圆形看起来更有 “弧度转折” 的真实感。
+    
+     内部上暗阴影：inset 0 4px 2px rgba(0,0,0,0.25)
+     inset：属于内部阴影。
+     0：水平偏移量（水平居中）。
+     4px：垂直偏移量（向下偏移 4px，位于元素内部上半部分）。
+     2px：模糊半径（轻微模糊，过渡自然）。
+     rgba(0,0,0,0.25)：颜色为半透明黑色（透明度 25%）。
+     
+     效果：在 .circle::after 伪元素的内部上半部分增加一道暗阴影，
+     与顶部外高光形成 “上亮下暗” 的对比，强化内部的 “凹陷感”
+     （模拟光线无法完全照亮内部上方的效果），让内层圆形的内部空间感更真实。
+     
+     内部下亮阴影：inset 0 -2px 2px rgba(255,255,255,0.5)
+     inset：属于内部阴影。
+     0：水平偏移量（水平居中）。
+     -2px：垂直偏移量（向上偏移 2px，位于元素内部下半部分）。
+     2px：模糊半径（轻微模糊）。
+     rgba(255,255,255,0.5)：颜色为半透明白色（透明度 50%）。
+    
+     效果：在 .circle::after 伪元素的内部下半部分添加一道浅色高光，
+     模拟 “光线反射到内部底部” 的效果，与内部上暗阴影形成 “上暗下亮” 的对比，
+     让内层圆形的内部看起来有 “弧度起伏”，增强立体感。
+    */
+    box-shadow: inset 0 5px 10px rgba(0,0,0,0.25),
+    0 10px 10px rgba(0,0,0,0.75),
+    0 -2px 2px rgba(255,255,255,0.5),
+    inset 0 4px 2px rgba(0,0,0,0.25),
+    inset 0 -2px 2px rgba(255,255,255,0.5);
+}
+
+.container .circle .number 
+{
+    position: relative;
+    color: #fff;
+    /* 
+     设置元素的堆叠层级为 10, 
+     可以确保 .number 元素显示在所有伪元素之上，不会被背景圆环遮挡
+    */
+    z-index: 10;
+    /* 行高等于字体大小 */
+    line-height: 1em;
+    /* 字体大小为父元素（.circle）字体大小的 2 倍，让数值成为视觉焦点 */
+    font-size: 2em;
+}
+
+.container .circle .number span
+{
+    font-size: 0.5em;
+    font-weight: 500;
+}
+
+.container .circle h4
+{
+    position: relative;
+    color: #fff;
+    z-index: 10;
+    font-weight: 500;
+    font-size: 0.8em;
+    /* 将文字转为全大写形式 */
+    text-transform: uppercase;
+    line-height: 0.6em;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antimate Circular Progress</title>
+    <!-- 创建一个样式表 -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 
+         自定义数据属性 data-degree="84" 和 data-color="#ff2972"：
+         这是 HTML5 的 data-* 特性，用于存储页面的自定义数据
+         （不直接影响页面显示，但可被 JavaScript 读取)
+        -->
+        <div class="circle" data-degree="84" data-color="#ff2972">
+            <h2 class="number">84<span>%</span></h2>
+            <h4>Html</h4>
+        </div>
+        
+        <div class="circle" data-degree="58" data-color="#fee800">
+            <h2 class="number">58<span>%</span></h2>
+            <h4>Css</h4>
+        </div>
+        
+        <div class="circle" data-degree="95" data-color="#04fc43">
+            <h2 class="number">95<span>%</span></h2>
+            <h4>JavaScript</h4>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", 
+        function(event){
+            let circle = document.querySelectorAll('.circle');
+            circle.forEach(function(progress){
+                let degree = 0;
+                var targetDegree = parseInt(progress.getAttribute('data-degree'));
+                let color = progress.getAttribute('data-color');
+                let number = progress.querySelector('.number');
+
+                var interval = setInterval(function(){
+                    degree += 1;
+                    if (degree > targetDegree){
+                        clearInterval(interval);
+                        return;
+                    }
+                    progress.style.background = `conic-gradient(${color} ${degree}%, #222 0%)`;
+                    number.innerHTML = degree + '<span>%</span>';
+                    number.style.color = color;
+                },50)
+            })
+        })
+    </script>
+</body>
+</html>
