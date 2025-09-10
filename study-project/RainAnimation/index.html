@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rain Animation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="cloud"></div>
+    </div>
+
+    <script>
+        function rain(){
+            // 获取页面中的云朵元素（.cloud）
+            let cloud = document.querySelector('.cloud');
+            // 创建一个新的div元素（作为雨滴）
+            let e = document.createElement('div');
+            // 生成随机水平位置（0-310px之间，适配云朵宽度320px）
+            let left = Math.floor(Math.random() * 310);
+            // 生成随机宽度（0.5-5.5px之间，雨滴粗细不同）
+            let width = Math.random() * 5;
+            // 生成随机高度（0.5-50.5px之间，雨滴长短不同）
+            let height = Math.random() * 50;
+            // 生成随机动画时长（0-0.5秒之间，控制下落速度差异）
+            let duration = Math.random() * 0.5;
+
+            // 给雨滴添加类名（用于匹配CSS样式）
+            e.classList.add('drop');
+            // 将雨滴添加到云朵元素中（作为子元素，从云朵位置开始下落
+            cloud.appendChild(e);
+            // 应用随机属性到雨滴样式
+            e.style.left = left + 'px';
+            e.style.width = 0.5 + width + 'px';
+            e.style.height = 0.5 + height + 'px';
+            e.style.animationDuration = 1 + duration + 's';
+
+            // 2秒后移除雨滴（大于最长动画时长1.5秒，确保动画完成）
+            setTimeout(function(){
+                cloud.removeChild(e)
+            },2000)
+        }
+
+        // 每20毫秒生成一个新雨滴（控制雨的密度）
+        setInterval(function(){
+            rain()
+        },20)
+    </script>
+</body>
+</html>

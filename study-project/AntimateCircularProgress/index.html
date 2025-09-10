@@ -31,25 +31,33 @@
     </div>
 
     <script>
+        // 在HTML 文档完全加载并解析完成后执行
         document.addEventListener("DOMContentLoaded", 
         function(event){
+            // 选中页面中所有类名为circle的元素
             let circle = document.querySelectorAll('.circle');
+            // 遍历每个选中的圆形组件（变量progress代表当前遍历的圆形），对每个圆形单独处理进度动画
             circle.forEach(function(progress){
-                let degree = 0;
-                var targetDegree = parseInt(progress.getAttribute('data-degree'));
-                let color = progress.getAttribute('data-color');
-                let number = progress.querySelector('.number');
+                let degree = 0;     // 初始进度（度数）
+                // parseInt确保targetDegree是整数
+                var targetDegree = parseInt(progress.getAttribute('data-degree'));      // 目标进度（从data-degree获取）
+                let color = progress.getAttribute('data-color');        // 进度条颜色（从data-color获取）
+                let number = progress.querySelector('.number');     // 获取当前圆形内显示数值的元素（.number）
 
+                // setInterval定时器
                 var interval = setInterval(function(){
-                    degree += 1;
+                    degree += 1;        // 每次执行进度+1
                     if (degree > targetDegree){
-                        clearInterval(interval);
+                        clearInterval(interval);    // 当进度超过目标值，停止定时器
                         return;
                     }
+                    // 更新圆形背景（进度环效果）
                     progress.style.background = `conic-gradient(${color} ${degree}%, #222 0%)`;
+                    // 更新显示的数值（加百分号）
                     number.innerHTML = degree + '<span>%</span>';
+                    // 让数值颜色与进度环一致
                     number.style.color = color;
-                },50)
+                },50)       // 每50毫秒执行一次（控制动画速度）
             })
         })
     </script>
