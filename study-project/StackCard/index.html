@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- 声明文档类型为HTML5 -->
+<html lang="ch-ZN"> <!-- HTML根元素，lang属性表示语言（此处"ch-ZN"应为"zh-CN"的笔误，代表中文） -->
+<head>
+    <meta charset="UTF-8"> <!-- 字符编码设置为UTF-8，支持中文等多语言 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 视口设置，适配移动设备，宽度为设备宽度，初始缩放1.0 -->
+    <title>Stack Card</title> <!-- 页面标题，显示在浏览器标签页 -->
+    <link rel="stylesheet" href="style.css"> <!-- 引入外部CSS样式文件 -->
+</head>
+<body>
+    <div class="container"></div> <!-- 卡片容器，用于承载所有3D堆叠的卡片 -->
+    <script>
+        // 获取容器元素（用于存放卡片）
+        let container = document.querySelector('.container');
+        // 设置卡片数量为12张
+        let number = 12;
+        // 循环创建12张卡片
+        for(let i = 0; i < number; i++){
+            // 创建卡片元素
+            let card = document.createElement('div');
+            // 给卡片添加类名"card"（用于应用CSS样式）
+            card.className = 'card';
+            // 设置卡片显示的文本内容（从1开始计数）
+            card.textContent = `${i + 1}`;
+            // 计算Z轴位置（每张卡片沿Z轴向后移动120px，形成堆叠效果）
+            let zPos = i * -120;
+            // 计算Y轴位置（每张卡片沿Y轴向下移动20px，增强堆叠层次感）
+            let yPos = i * -20;
+            // 设置卡片的3D变换：沿Z轴平移zPos，沿Y轴平移yPos
+            card.style.transform = `translateZ(${zPos}px) 
+            translateY(${yPos}px)`;
+            // 设置卡片的色相旋转（每张卡片旋转30度，形成渐变色彩效果）
+            card.style.filter = `hue-rotate(${i * 30}deg)`;
+            // 将卡片添加到容器中
+            container.appendChild(card);
+        }
+    </script>
+</body>
+</html>

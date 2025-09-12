@@ -1,0 +1,70 @@
+/* 导入Google字体Poppins（包含多种字重） */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/* 通配符选择器：清除所有元素的默认内外边距，设置盒模型为border-box（边框计算在宽高中） */
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* 全局字体设置为Poppins */
+}
+
+/* 页面 body 样式 */
+body
+{
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中内容 */
+    align-items: center; /* 垂直居中内容 */
+    min-height: 100vh; /* 最小高度为视口高度，确保内容占满屏幕 */
+    background: #313131; /* 背景色为深灰色 */
+    perspective: 2500px; /* 设置3D透视距离（值越小，3D效果越强），为子元素提供3D空间 */
+}
+
+/* 卡片容器样式 */
+.container
+{
+    position: relative; /* 相对定位，作为卡片的定位父级 */
+    top: 150px; /* 容器向下偏移150px */
+    left: 150px; /* 容器向右偏移150px */
+    width: 300px; /* 容器宽度300px */
+    height: 400px; /* 容器高度400px */
+    transform-style: preserve-3d; /* 保留3D变换效果，使子元素在3D空间中显示 */
+    transform: rotateY(20deg); /* 容器沿Y轴旋转20度，初始3D角度 */
+}
+
+/* 卡片基础样式 */
+.container .card
+{
+    position: absolute; /* 绝对定位，所有卡片堆叠在容器同一位置 */
+    top: 0; /* 初始顶部位置 */
+    width: 300px; /* 卡片宽度（与容器一致） */
+    height: 400px; /* 卡片高度（与容器一致） */
+    background: #4a4a4a; /* 卡片背景色为中灰色 */
+    border-radius: 10px; /* 圆角边框（10px弧度） */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* 卡片阴影（增强立体感） */
+    transition: 0.5s; /* 过渡动画时长0.5秒（原代码此处漏写's'，应为0.5s） */
+    font-size: 2em; /* 字体大小为2倍默认值 */
+    font-weight: 700; /* 字体粗细为700（加粗） */
+    padding: 10px; /* 内边距10px */
+    border: 1px solid rgba(0,0,0,1); /* 黑色边框（不透明） */
+    -webkit-text-stroke: 1px #fff5; /* 文字白色描边（透明度50%） */
+    color: transparent; /* 文字本身透明（只显示描边） */
+    transition: 0.5; /* 过渡动画（同上，应为0.5s） */
+}
+
+/* 单个卡片悬停基础效果（优先级较低） */
+.container .card:hover
+{
+    opacity: 1; /* 不透明度设为1（完全显示） */
+    transition: 0.01; /* 快速过渡（应为0.01s） */
+}
+
+/* 容器悬停时，被选中的卡片效果（优先级更高） */
+.container:hover .card:hover
+{
+    top: -15%; /* 卡片上移15%（突出显示） */
+    color: #333; /* 文字颜色设为深灰色（显示文字） */
+    box-shadow: 0 0 50px #64ff74, inset 0 0 120px #64ff74; /* 外发光和内发光效果（绿色） */
+    background: #64ff74; /* 卡片背景色变为亮绿色 */
+}
