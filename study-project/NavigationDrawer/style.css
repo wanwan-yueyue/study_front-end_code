@@ -1,0 +1,202 @@
+/* 引入Ubuntu字体 */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/* 全局样式重置 */
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 盒模型设置为border-box，便于尺寸计算 */
+    font-family: 'Ubuntu', sans-serif; /* 使用引入的Ubuntu字体 */
+}
+
+/* 页面主体样式 */
+body
+{
+    display: flex;
+    justify-self: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    min-height: 100vh; /* 最小高度为视口高度 */
+    background: #f6f6f6; /* 浅灰色背景 */
+}
+
+/* 抽屉导航容器 */
+.drawer
+{
+    position: relative; /* 相对定位，作为子元素的定位参考 */
+}
+
+/* 菜单切换按钮样式 */
+.drawer .menu_toggle
+{
+    position: absolute; /* 绝对定位 */
+    right: -25px; /* 定位到导航栏右侧外部 */
+    top: 50%; /* 垂直居中 */
+    transform: translateY(-50%); /* 精确垂直居中 */
+    width: 25px; /* 宽度 */
+    height: 50px; /* 高度 */
+    background: #fff; /* 白色背景 */
+    border-top-right-radius: 25px; /* 右上角圆角 */
+    border-bottom-right-radius: 25px; /* 右下角圆角 */
+    z-index: 100; /* 确保在导航栏上方显示 */
+    cursor: pointer; /* 鼠标悬停时显示手型指针 */
+    display: flex;
+    justify-content: center; /* 内部元素水平居中 */
+    align-items: center; /* 内部元素垂直居中 */
+}
+
+/* 切换按钮上方装饰元素 */
+.drawer .menu_toggle::before
+{
+    content: ''; /* 伪元素必须设置content属性 */
+    position: absolute; /* 绝对定位 */
+    top: -12px; /* 定位到按钮上方 */
+    left: 0;
+    width: 15px;
+    height: 15px;
+    background: transparent; /* 透明背景 */
+    border-bottom-left-radius: 15px; /* 左下角圆角 */
+    box-shadow: -5px 2px #fff; /* 用阴影创建三角形效果 */
+}
+
+/* 切换按钮下方装饰元素 */
+.drawer .menu_toggle::after
+{
+    content: '';
+    position: absolute;
+    bottom: -12px; /* 定位到按钮下方 */
+    left: 0;
+    width: 15px;
+    height: 15px;
+    background: transparent;
+    border-top-left-radius: 15px; /* 左上角圆角 */
+    box-shadow: -5px -2px #fff; /* 用阴影创建三角形效果 */
+}
+
+/* 箭头容器 */
+.drawer .menu_toggle span
+{
+    position: relative;
+    left: -8px; /* 向左微调位置 */
+    display: inline-block;
+    min-width: 25px;
+    height: 25px;
+    border-radius: 50%; /* 圆形背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 箭头样式 - 使用伪元素创建 */
+.drawer .menu_toggle span::before
+{
+    content: '';
+    position: absolute;
+    left: 8px; /* 定位箭头位置 */
+    width: 8px; /* 箭头宽度 */
+    height: 8px; /* 箭头高度 */
+    border-top: 2px solid #379fff; /* 上边框 - 箭头的一部分 */
+    border-right: 2px solid #379fff; /* 右边框 - 箭头的另一部分 */
+    transform: rotate(45deg); /* 旋转45度形成右向箭头 */
+    transition: transform 0.5s ease; /* 过渡效果，使旋转平滑 */
+}
+
+/* 激活状态下的箭头样式 */
+.drawer .menu_toggle.active span::before
+{
+    transform: rotate(225deg); /* 旋转225度形成左向箭头 */
+}
+
+/* 导航菜单容器样式 */
+.drawer .navigation
+{
+    position: relative;
+    left: 8px; /* 向左微调 */
+    width: 80px; /* 默认宽度（收起状态） */
+    background: #fff; /* 白色背景 */
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column; /* 垂直排列子元素 */
+    box-shadow: 20px 20px 50px rgba(0,0,0,0.05); /* 轻微阴影效果 */
+    border-radius: 10px; /* 圆角边框 */
+    transition: 0.5s; /* 添加过渡效果，使宽度变化平滑 */
+    overflow: hidden; /* 隐藏超出容器的内容 */
+}
+
+/* 激活状态下的导航菜单（展开状态） */
+.drawer .navigation.active
+{
+    width: 300px; /* 展开后的宽度 */
+}
+
+
+/* 菜单列表容器 */
+.drawer .navigation .menu
+{
+    position: relative;
+    width: 100%;
+    padding: 30px 10px; /* 内边距 */
+    transition: 0.5s; /* 过渡效果 */
+}
+
+/* 清除列表默认样式 */
+.drawer .navigation .menu li
+{
+    list-style: none; /* 去除默认列表符号 */
+}
+
+/* 菜单项链接样式 */
+.drawer .navigation .menu li a
+{
+    position: relative;
+    display: flex; /* 弹性布局，使图标和文字水平排列 */
+    text-decoration: none; /* 去除下划线 */
+    color: #111; /* 文字颜色 */
+    border-radius: 30px; /* 圆角 */
+}
+
+.drawer .navigation .menu li a:hover
+{
+    background: #379fff;
+    color: #fff;
+}
+
+/* 鼠标悬停时的链接样式 */
+.drawer .navigation .menu li a:hover
+{
+    background: #379fff; /* 背景色变为蓝色 */
+    color: #fff; /* 文字颜色变为白色 */
+}
+
+/* 图标容器样式 */
+.drawer .navigation .menu li a .icon
+{
+    position: relative;
+    min-width: 60px; /* 固定宽度，确保图标对齐 */
+    height: 60px; /* 固定高度 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em; /* 图标大小 */
+}
+
+/* 文字容器样式 */
+.drawer .navigation .menu li a .text
+{
+    position: relative;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25em; /* 文字大小 */
+    margin-left: 10px; /* 与图标保持距离 */
+    white-space: nowrap; /* 防止文字换行 */
+    opacity: 0; /* 默认隐藏文字（收起状态） */
+    transition: opacity 0.3s ease; /* 文字显示/隐藏的过渡效果 */
+}
+
+/* 导航展开时显示文字 */
+.drawer .navigation.active .menu li a .text
+{
+    opacity: 1; /* 显示文字 */
+}

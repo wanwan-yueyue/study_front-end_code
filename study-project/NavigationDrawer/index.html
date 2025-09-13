@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ch-ZN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 确保页面在不同设备上正确缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Drawer</title>
+    <!-- 引入外部样式表 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 抽屉        抽屉式导航容器
+        包含切换按钮和导航菜单两部分
+    -->
+    <div class="drawer">
+        <!-- 菜单切换按钮 - 点击可展开/收起导航栏 -->
+        <div class="menu_toggle">
+            <span></span> <!-- 用于显示箭头的元素 -->
+        </div>
+        
+        <!-- 导航菜单容器 -->
+        <div class="navigation">
+            <!-- 菜单列表 -->
+            <ul class="menu">
+                <!-- 菜单项：个人资料 -->
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="text">Profile</span>
+                    </a>
+                </li>
+
+                <!-- 菜单项：视频 -->
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="videocam-outline"></ion-icon></span>
+                        <span class="text">Video</span>
+                    </a>
+                </li>
+
+                <!-- 菜单项：收入 -->
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="wallet-outline"></ion-icon></span>
+                        <span class="text">Revenue</span>
+                    </a>
+                </li>
+
+                <!-- 菜单项：收件箱 -->
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="chatbox-outline"></ion-icon></span>
+                        <span class="text">Inbox</span>
+                    </a>
+                </li>
+
+                <!-- 菜单项：设置 -->
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+                        <span class="text">Settings</span>
+                    </a>
+                </li>
+
+                <!-- 菜单项：帮助支持 -->
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="help-outline"></ion-icon></span>
+                        <span class="text">Support</span>
+                    </a>
+                </li>
+
+                <!-- 菜单项：退出登录 -->
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 引入Ionicons图标库 (现代浏览器模块方式) -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <!-- 引入Ionicons图标库 (兼容旧浏览器方式) -->
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+    <script>
+        // 获取菜单切换按钮和导航容器元素
+        const menu_toggle = document.querySelector('.menu_toggle');
+        const navigation = document.querySelector('.navigation');
+
+        // 为切换按钮添加点击事件
+        menu_toggle.onclick = function(){
+            // 切换导航容器的active类 (控制展开/收起)
+            navigation.classList.toggle('active');
+            // 切换按钮的active类 (控制箭头方向)
+            menu_toggle.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
