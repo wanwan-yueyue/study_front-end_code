@@ -1,0 +1,90 @@
+/* 通配符选择器：清除所有元素默认的内外边距，设置盒模型为border-box（边框计算在宽高中） */
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* body样式：使用flex布局让内容在页面居中（水平+垂直），最小高度为屏幕高度，背景色为深灰黑色 */
+body
+{
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    min-height: 100vh; /* 最小高度为视口高度，确保占满屏幕 */
+    background: #10131c; /* 背景色 */
+}
+
+/* 导航容器基础样式：初始为70x70px的方块，深灰色背景，圆角，鼠标悬停为指针样式，内部内容居中 */
+.navigation
+{
+    position: relative; /* 相对定位，作为子元素绝对定位的参考 */
+    width: 70px; /* 初始宽度 */
+    height: 70px; /* 初始高度 */
+    background: #212532; /* 背景色 */
+    border-radius: 10px; /* 圆角 */
+    cursor: pointer; /* 鼠标指针为手型 */
+    display: flex; /* 内部元素居中 */
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s; /* 过渡动画时长 */
+    transition-delay: 0.8s; /* 过渡延迟（初始状态下，点击后先等待0.8s再变化） */
+}
+
+/* 导航容器激活状态（展开）：宽度高度变为200px，取消过渡延迟（立即变化） */
+.navigation.active
+{
+    width: 200px;
+    height: 200px;
+    transition-delay: 0s; /* 激活时立即开始过渡 */
+}
+
+/* 导航内部圆点样式：初始为7x7px的白色圆点，通过CSS变量定位，设置过渡动画 */
+.navigation span
+{
+    position: absolute; /* 绝对定位，相对于navigation容器 */
+    width: 7px; /* 初始宽度（圆点大小） */
+    height: 7px; /* 初始高度 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff; /* 白色圆点 */
+    border-radius: 50%; /* 圆形 */
+    /* 通过CSS变量--x和--y计算位置（12px为基础偏移量） */
+    transform: translate(calc(12px * var(--x)), calc(12px * var(--y)));
+    transition: transform 0.5s, width 0.5s, height 0.5s, background 0.5s; /* 过渡属性：位置、宽高、背景色 */
+    transition-delay: calc(0.1s * var(--i)); /* 过渡延迟：根据--i变量依次延迟（0.1s递增） */
+}
+
+/* 激活状态下的圆点样式：变为45x45px的深灰色方块，位置通过变量重新计算（60px为基础偏移量） */
+.navigation.active span
+{
+    width: 45px; /* 激活后宽度 */
+    height: 45px; /* 激活后高度 */
+    background: #333849; /* 激活后背景色 */
+    /* 激活后位置重新计算（60px为基础偏移量，展开更大范围） */
+    transform: translate(calc(60px * var(--x)), calc(60px * var(--y)));
+}
+
+/* 图标初始样式：字体大小为0（隐藏） */
+.navigation span ion-icon
+{
+    transition: 0.5s; /* 过渡动画 */
+    font-size: 0em; /* 初始隐藏图标 */
+}
+
+/* 激活状态下的图标样式：显示图标（字体大小1.35em），白色 */
+.navigation.active span ion-icon
+{
+    font-size: 1.35em; /* 显示图标 */
+    color: #fff; /* 图标颜色 */
+}
+
+/* 激活状态下鼠标悬停图标：变绿色并添加绿色发光效果 */
+.navigation.active span:hover ion-icon
+{
+    color: #2dfc52; /* 图标颜色变为亮绿色 */
+    /* 添加绿色阴影效果（多层阴影增强发光感） */
+    filter: drop-shadow(0 0 2px #2dfc52) drop-shadow(0 0 5px #2dfc52) drop-shadow(0 0 15px #2dfc52);
+}

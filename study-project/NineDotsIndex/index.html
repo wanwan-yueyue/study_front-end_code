@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ch-ZN">
+<head>
+    <meta charset="UTF-8"> <!-- 字符编码：UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 视口设置：适配移动端，初始缩放1.0 -->
+    <title>Nine Dots</title> <!-- 页面标题 -->
+    <link rel="stylesheet" type="text/css" href="style.css"> <!-- 引入外部CSS样式表 -->
+</head>
+<body>
+    <!-- 导航容器：包含9个圆点（激活后展开为图标按钮） -->
+    <div class="navigation">
+        <!-- 每个span通过CSS变量定义：
+             --i：过渡延迟序号（0-8）
+             --x、--y：位置偏移方向（-1/0/1分别代表左/中/右、上/中/下）
+             内部ion-icon为图标（使用ionicons库）
+         -->
+        <span style="--i:0;--x:-1;--y:0"><ion-icon name="camera-outline"></ion-icon></span> <!-- 左中：相机图标 -->
+        <span style="--i:1;--x:1;--y:0"><ion-icon name="diamond-outline"></ion-icon></span> <!-- 右中：钻石图标 -->
+        <span style="--i:2;--x:0;--y:-1"><ion-icon name="chatbubble-outline"></ion-icon></span> <!-- 上中：气泡聊天图标 -->
+        <span style="--i:3;--x:0;--y:1"><ion-icon name="alarm-outline"></ion-icon></span> <!-- 下中：闹钟图标 -->
+        <span style="--i:4;--x:1;--y:1"><ion-icon name="game-controller-outline"></ion-icon></span> <!-- 右下：游戏手柄图标 -->
+        <span style="--i:5;--x:-1;--y:-1"><ion-icon name="moon-outline"></ion-icon></span> <!-- 左上：月亮图标 -->
+        <span style="--i:6;--x:0;--y:0"><ion-icon name="notifications-outline"></ion-icon></span> <!-- 中心：通知图标 -->
+        <span style="--i:7;--x:-1;--y:1"><ion-icon name="water-outline"></ion-icon></span> <!-- 左下：水滴图标 -->
+        <span style="--i:8;--x:1;--y:-1"><ion-icon name="time-outline"></ion-icon></span> <!-- 右上：时间图标 -->
+    </div>
+
+    <!-- 引入ionicons图标库（两种方式适配不同浏览器） -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script> <!-- 模块化引入 -->
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> <!-- 非模块化引入（兼容旧浏览器） -->
+
+    <!-- JavaScript交互逻辑 -->
+    <script>
+        // 获取导航容器元素
+        let navigation = document.querySelector('.navigation');
+        // 点击导航容器时，切换active类（控制展开/收起状态）
+        navigation.onclick = function(){
+            navigation.classList.toggle('active')
+        }
+    </script>
+</body>
+</html>
