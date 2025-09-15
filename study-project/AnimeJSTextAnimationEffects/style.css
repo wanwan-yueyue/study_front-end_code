@@ -1,0 +1,44 @@
+/* 导入Google字体Roboto，包含多种字重（200-900） */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/* 通配符选择器：清除所有元素的默认内外边距 */
+*
+{
+    margin: 0;
+    padding: 0;
+    /* 盒模型设置：元素宽度包含边框和内边距，避免布局偏移 */
+    box-sizing: border-box;
+    /* 全局字体设置为Roboto，无衬线字体 */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* 区块容器样式 */
+section
+{
+    position: relative; /* 相对定位，为内部元素提供定位参考 */
+    /* Flex布局：使内部元素水平和垂直居中 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    min-height: 100vh; /* 最小高度为视口高度，确保占满全屏 */
+    background: #0e1623; /* 深色背景色，突出绿色文本 */
+    overflow: hidden; /* 隐藏超出容器的内容（避免动画元素溢出显示） */
+}
+
+/* 文本容器样式（h2标签） */
+section .text
+{
+    position: relative; /* 相对定位 */
+    font-size: 5em; /* 字体大小为5倍默认大小（约80px） */
+    text-align: center; /* 文本居中对齐 */
+    color: #00fe77; /* 文本颜色：亮绿色，与深色背景形成对比 */
+    /* 文本倒影效果：在元素下方生成倒影，-0.46em是倒影距离，linear-gradient设置倒影透明度渐变 */
+    -webkit-box-reflect: below -0.46em linear-gradient(transparent, #0004);
+}
+
+/* 单个字符容器样式（span标签） */
+section .text span
+{
+    position: relative; /* 相对定位，便于后续动画定位调整 */
+    display: inline-block; /* 行内块级元素：使每个字符独立占据空间，支持宽高和位移动画 */
+}

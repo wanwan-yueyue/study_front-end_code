@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ch-ZN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 设置字符编码为UTF-8，确保中文等字符正常显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 视口设置：宽度等于设备宽度，初始缩放比例1.0，适配移动端 -->
+    <title>Anime.JS Text Animation Effects</title>
+    <!-- 网页标题，显示在浏览器标签页 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入外部CSS样式表，用于页面样式设计 -->
+</head>
+<body>
+    <section>
+        <!-- 定义一个区块容器，用于包裹动画文本 -->
+        <h2 class="text">AnimeJS Text Animation Effects</h2>
+        <!-- 标题元素，类名为text，作为动画的目标元素 -->
+    </section>
+    
+    <script src="anime.min.js"></script>
+    <!-- 引入Anime.js库（精简版），用于实现文本动画效果 -->
+
+    <script>
+        // 获取类名为text的DOM元素（即h2标签）
+        const text = document.querySelector('.text');
+        // 将文本内容中的每个非空白字符（\S匹配非空白）替换为<span>字符</span>
+        // 目的是让每个字符单独成为动画目标，实现逐个动画效果
+        text.innerHTML = text.textContent.replace(/\S/g, "<span>$&</span>");
+
+        // 创建Anime.js动画时间线，设置loop: true使动画循环播放
+        anime.timeline({
+            loop: true
+        })
+
+        // 第一个动画步骤：字符从上方飞入并缩小显示
+        .add({
+            targets: '.text span', // 动画目标：所有.text类下的span标签（每个字符）
+            translateY: [-600, 0], // Y轴位移：从上方600px处移动到原始位置
+            scale: [10, 1], // 缩放：从10倍缩小到原始大小
+            opacity: [0, 1], // 透明度：从完全透明到完全不透明
+            easing: "easeOutExpo", // 缓动函数：先快后慢的指数曲线
+            duration: 1500, // 动画持续时间：1500毫秒（1.5秒）
+            delay: anime.stagger(100), // 延迟：每个字符依次延迟100ms开始动画（错开效果）
+        })
+
+        // 第二个动画步骤：字符向左飞出并消失
+        .add({
+            targets: '.text span',
+            translateX: [0, -1000], // X轴位移：从原始位置移动到左侧1000px处
+            scale: [1, 1], // 缩放保持不变
+            opacity: [1, 0], // 透明度：从不透明到完全透明
+            easing: "easeOutExpo",
+            duration: 2000, // 持续时间：2000毫秒（2秒）
+            delay: anime.stagger(100), // 同样依次延迟100ms，形成逐个消失效果
+        })
+
+        // 第三个动画步骤：字符从右侧飞入并显示
+        .add({
+            targets: '.text span',
+            translateX: [1000, 0], // X轴位移：从右侧1000px处移动到原始位置
+            scale: [1, 1], // 缩放保持不变
+            opacity: [0, 1], // 透明度：从透明到不透明
+            easing: "easeOutExpo",
+            duration: 2000,
+            delay: anime.stagger(100), // 依次延迟，形成逐个进入效果
+        })
+
+        // 第四个动画步骤：字符放大并消失
+        .add({
+            targets: '.text span',
+            translateX: [0, 0], // X轴位置不变
+            scale: [1, 50], // 缩放：从原始大小放大到50倍
+            opacity: [1, 0], // 透明度：从不透明到完全透明
+            easing: "easeOutExpo",
+            duration: 2000,
+            delay: anime.stagger(100), // 依次延迟，形成逐个放大消失效果
+        })
+
+    </script>
+</body>
+</html>
