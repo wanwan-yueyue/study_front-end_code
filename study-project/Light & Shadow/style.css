@@ -1,0 +1,89 @@
+/* 引入 Google Fonts 提供的 Poppins 字体，包含多种字重（200到900）供使用 */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/* 通用选择器：清除所有元素默认的内外边距，设置盒模型为border-box（边框包含在宽高中），统一字体为Poppins */
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* body样式：使用flex布局使内容居中，最小高度为视口高度（占满屏幕），背景色为深灰色，隐藏溢出内容（避免滚动条） */
+body
+{
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    min-height: 100vh; /* 最小高度为视口高度 */
+    background: #333; /* 深灰色背景 */
+    overflow: hidden; /* 隐藏溢出内容 */
+}
+
+/* 文本元素样式：设置文本颜色为白色，字重为100（极轻），字体大小为10em（大尺寸），鼠标指针为默认样式（非手型） */
+#text
+{
+    position: relative;
+    color: #fff;
+    font-weight: 100;
+    font-size: 10em;
+    cursor: default;
+     /* 禁止文本被选中 */
+    user-select: none;
+    -webkit-user-select: none; /* 兼容 Safari */
+    -moz-user-select: none; /* 兼容 Firefox */
+    -ms-user-select: none; /* 兼容 IE/Edge */
+}
+
+/* 光源元素样式：绝对定位（跟随鼠标移动），初始位置通过JS动态设置，宽高50px的圆形，白色背景，多重阴影模拟发光效果 */
+#Light
+{
+    position: absolute; /* 绝对定位，脱离文档流 */
+    transform: translate(-50%, 50%); /* 调整位置偏移，使光源中心对准鼠标 */
+    width: 50px;
+    height: 50px;
+    background: #fff; /* 白色光源 */
+    border-radius: 50%; /* 圆形 */
+    /* 多层阴影模拟光源扩散效果，从内到外阴影范围逐渐扩大 */
+    box-shadow: 0 0 15px #fff,
+    0 0 50px #fff,
+    0 0 100px #fff,
+    0 0 200px #fff,
+    0 0 300px #fff,
+    0 0 500px #fff;
+}
+
+/* 平板设备适配 (768px以下) */
+@media (max-width: 768px) {
+    #text {
+        font-size: 6em; /* 缩小字体 */
+    }
+    #Light {
+        width: 40px;
+        height: 40px; /* 缩小光源 */
+        box-shadow: 0 0 10px #fff,
+        0 0 30px #fff,
+        0 0 60px #fff,
+        0 0 120px #fff,
+        0 0 180px #fff,
+        0 0 300px #fff; /* 减弱光源效果 */
+    }
+}
+
+/* 手机设备适配 (480px以下) */
+@media (max-width: 480px) {
+    #text {
+        font-size: 3.5em; /* 进一步缩小字体 */
+    }
+    #Light {
+        width: 30px;
+        height: 30px; /* 进一步缩小光源 */
+        box-shadow: 0 0 8px #fff,
+        0 0 20px #fff,
+        0 0 40px #fff,
+        0 0 80px #fff,
+        0 0 120px #fff,
+        0 0 200px #fff; /* 进一步减弱光源效果 */
+    }
+}

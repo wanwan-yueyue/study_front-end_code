@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ch-ZN"> <!-- 文档类型为HTML5，语言为中文 -->
+<head>
+    <meta charset="UTF-8"> <!-- 字符编码为UTF-8，支持中文等多语言 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 适配移动设备，初始缩放为1 -->
+    <title>Light & Shadow</title> <!-- 页面标题 -->
+    <link rel="stylesheet" href="style.css"> <!-- 引入外部CSS样式表 -->
+</head>
+<body>
+    <div id="text">Shadow</div> <!-- 展示阴影效果的文本元素 -->
+    <div id="Light"></div> <!-- 模拟光源的元素 -->
+
+    <script>
+        // 获取页面中的文本元素和光源元素
+        let text = document.getElementById('text');
+        let Light = document.getElementById('Light');
+        // 标记光源是否处于可拖动状态
+        let isDragging = false;
+        // 记录鼠标/触摸点在光源内的相对偏移量
+        let offsetX = 0;
+        let offsetY = 0;
+        
+        // 页面加载完成后，初始化光源位置到左上角
+        window.addEventListener('load', function() {
+            Light.style.left = '0px';
+            Light.style.top = '0px';
+            // 主动触发阴影计算
+            updateShadow(); 
+        });
+        
+        // 监听光源的鼠标按下事件（左键）
+        Light.addEventListener('mousedown', function(event) {
+            // 只有鼠标左键（button=0）按下时才允许拖动
+            if (event.button === 0) {
+                isDragging = true;
+                // 计算鼠标在光源元素内的相对位置（相对于光源左上角）
+                offsetX = event.clientX - Light.offsetLeft;
+                offsetY = event.clientY - Light.offsetTop;
+            }
+        });
+        
+        // 监听光源的触摸开始事件（移动端）
+        Light.addEventListener('touchstart', function(event) {
+            // 确保只有一个触摸点
+            if (event.touches.length === 1) {
+                isDragging = true;
+                // 获取触摸点的坐标
+                const touch = event.touches[0];
+                // 计算触摸点在光源元素内的相对位置
+                offsetX = touch.clientX - Light.offsetLeft;
+                offsetY = touch.clientY - Light.offsetTop;
+                // 阻止默认行为，防止页面滚动
+                event.preventDefault();
+            }
+        }, { passive: false });
+        
+        // 监听整个文档的鼠标释放事件
+        document.addEventListener('mouseup', function() {
+            // 释放鼠标时停止拖动
+            isDragging = false;
+        });
+        
+        // 监听整个文档的触摸结束事件（移动端）
+        document.addEventListener('touchend', function() {
+            // 触摸结束时停止拖动
+            isDragging = false;
+        });
+        
+        // 监听鼠标移动事件：当鼠标移动时触发
+        document.addEventListener('mousemove', function(event){
+            // 只有处于拖动状态时才更新光源位置
+            if (isDragging) {
+                // 获取当前鼠标在视口中的X、Y坐标
+                let mouseX = event.clientX;
+                let mouseY = event.clientY;
+                
+                // 动态设置光源元素的位置为鼠标当前坐标（使光源跟随鼠标）
+                Light.style.left = (mouseX - offsetX) + 'px';
+                Light.style.top = (mouseY - offsetY) + 'px';
+            }
+
+            updateShadow();
+        });
+        
+        // 监听触摸移动事件（移动端）
+        document.addEventListener('touchmove', function(event) {
+            // 只有处于拖动状态且有一个触摸点时才更新光源位置
+            if (isDragging && event.touches.length === 1) {
+                // 获取触摸点的坐标
+                const touch = event.touches[0];
+                // 动态设置光源元素的位置为触摸点当前坐标（使光源跟随触摸）
+                Light.style.left = (touch.clientX - offsetX) + 'px';
+                Light.style.top = (touch.clientY - offsetY) + 'px';
+                // 阻止默认行为，防止页面滚动
+                event.preventDefault();
+            }
+            
+            updateShadow();
+        }, { passive: false });
+        
+        // 更新文本阴影效果的函数
+        function updateShadow() {
+            // 获取点光源当前位置(而非鼠标/触摸位置)
+            let lightX = parseInt(Light.style.left);
+            let lightY = parseInt(Light.style.top);
+
+            // 计算点光源到文本元素中心的水平距离（X轴）
+            // text.offsetLeft：文本元素左边缘到父元素的距离；text.offsetWidth/2：文本宽度的一半（中心X坐标）
+            let distanceX = lightX - text.offsetLeft - text.offsetWidth / 2;
+            // 计算点光源到文本元素中心的垂直距离（Y轴）
+            let distanceY = lightY - text.offsetTop - text.offsetHeight / 2;
+
+            // 用于拼接多重阴影的字符串
+            let newShadow = '';
+
+            // 动态调整阴影数量，移动端减少以提高性能
+            const shadowCount = window.innerWidth < 480 ? 100 : 200;
+            
+            // 循环生成多层阴影（模拟光影渐变效果）
+            for(var i = 0; i < shadowCount; i++){
+                // 计算第i层阴影的X偏移：与光源到文本中心的水平距离成反比（i越大，偏移越小）
+                let ShadowX = -distanceX * (i / shadowCount);
+                // 计算第i层阴影的Y偏移：与光源到文本中心的垂直距离成反比
+                let ShadowY = -distanceY * (i / shadowCount);
+                // 计算第i层阴影的透明度：i越大，透明度越低（逐渐消失）
+                let opacity = 1 - (i / 100);
+                
+                // 拼接阴影样式字符串（格式：X偏移 Y偏移 模糊 颜色）
+                // 首次拼接不加逗号，后续拼接加逗号分隔
+                newShadow += (newShadow ? ',' : '') + ShadowX + 'px ' + ShadowY + 'px 0 rgba(33, 33, 33, '+opacity+')';
+            }
+            
+            // 将生成的多重阴影应用到文本元素，实现跟随光源的光影效果
+            text.style.textShadow = newShadow;
+        }
+
+        // 窗口大小变化时重新计算初始位置
+        window.addEventListener('resize', function() {
+            if (!isDragging) { // 未拖动时才调整初始位置
+                Light.style.left = '0px';
+                Light.style.top = '0px';
+                // 重新计算阴影
+                updateShadow();
+            }
+        });
+    </script>
+</body>
+</html>
